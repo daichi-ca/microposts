@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     # params => { session: { email: "a@co.jp", password: "hogefuga"}} 
     email = params[:session][:email].downcase
     password = params[:session][:password]
-    if login(email, @assword)
+    if login(email, password)
       flash[:success] = 'ログインに成功しました。'
       redirect_to @user
     else
@@ -23,6 +23,9 @@ class SessionsController < ApplicationController
   
   def login(email, password)
     @user = User.find_by(email: email)
+    puts "hogeho"
+    puts @user
+    puts "hogeho"
     if @user && @user.authenticate(password)
       # ログイン成功
       session[:user_id] = @user.id
